@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Codex CLI",
+    "command": "codex",
+    "cwd": "C:\\Projects"
+  },
+  {
+    "name": "OpenCode CLI",
+    "command": "opencode",
+    "cwd": "C:\\Projects"
+  },
+  {
+    "name": "Grok CLI",
+    "command": "grok",
+    "cwd": "C:\\Projects"
+  },
+  {
+    "name": "Cline CLI",
+    "command": "cline",
+    "cwd": "C:\\Projects"
+  },
+  {
+    "name": "Claude CLI",
+    "command": "claude",
+    "cwd": "C:\\Projects"
+  },
+  {
+    "name": "Commandcode CLI",
+    "command": "cmdc",
+    "cwd": "C:\\Projects"
+  }
+]

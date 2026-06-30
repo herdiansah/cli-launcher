@@ -1,0 +1,16 @@
+{
+  "name": "terminal-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A dependency-free TUI for launching configured CLI profiles in new terminal tabs or windows.",
+  "bin": {
+    "terminal-launcher": "./src/terminal-launcher.js"
+  },
+  "scripts": {
+    "start": "node src/terminal-launcher.js",
+    "check": "node --check src/terminal-launcher.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
