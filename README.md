@@ -2,6 +2,8 @@
 
 A small dependency-free TUI for launching CLI profiles in new terminal tabs or windows.
 
+Each profile defines the CLI command to run. The working directory is always the folder where you start `tl`, so the same launcher can be used from any project folder.
+
 ## Run
 
 ```powershell
@@ -55,6 +57,8 @@ From inside this project folder, `.\tl` also works because PowerShell does not r
 - `r`: reload `config/profiles.json`
 - `q`: quit
 
+Add, edit, and delete use inline prompts. After the prompt completes, the TUI redraws and keyboard navigation remains active.
+
 ## Profiles
 
 Profiles are stored in `config/profiles.json`.
@@ -67,6 +71,13 @@ Profiles are stored in `config/profiles.json`.
   }
 ]
 ```
+
+Profile fields:
+
+- `name`: display name shown in the TUI
+- `command`: CLI command to run, such as `codex`, `claude`, or `opencode`
+
+Profiles do not store a working directory. Run `tl` from the project folder you want the selected CLI to use.
 
 On Windows, the launcher uses Windows Terminal (`wt.exe`) when available. It checks PATH first, then this common WindowsApps shim:
 
