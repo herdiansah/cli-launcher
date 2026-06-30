@@ -1,32 +1,26 @@
 [
   {
     "name": "Codex CLI",
-    "command": "codex",
-    "cwd": "C:\\Projects"
+    "command": "codex"
   },
   {
     "name": "OpenCode CLI",
-    "command": "opencode",
-    "cwd": "C:\\Projects"
+    "command": "opencode"
   },
   {
     "name": "Grok CLI",
-    "command": "grok",
-    "cwd": "C:\\Projects"
+    "command": "grok"
   },
   {
     "name": "Cline CLI",
-    "command": "cline",
-    "cwd": "C:\\Projects"
+    "command": "cline"
   },
   {
     "name": "Claude CLI",
-    "command": "claude",
-    "cwd": "C:\\Projects"
+    "command": "claude"
   },
   {
     "name": "Commandcode CLI",
-    "command": "cmdc",
-    "cwd": "C:\\Projects"
+    "command": "cmdc"
   }
 ]

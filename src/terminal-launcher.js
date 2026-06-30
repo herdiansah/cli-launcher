@@ -9,6 +9,7 @@ const rootDir = path.resolve(__dirname, "..");
 const configDir = path.join(rootDir, "config");
 const profilesPath = path.join(configDir, "profiles.json");
 const windowsTerminalFallbackPath = "C:\\Users\\PC\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe";
+const launchCwd = process.cwd();
 
 let profiles = [];
 let selectedIndex = 0;
@@ -49,8 +50,6 @@ function normalizeProfile(profile, index) {
 
   const name = String(profile.name || "").trim();
   const command = String(profile.command || "").trim();
-  const cwd = String(profile.cwd || process.cwd()).trim();
-
   if (!name) {
     throw new Error(`Profile at index ${index} is missing "name".`);
   }
@@ -59,7 +58,7 @@ function normalizeProfile(profile, index) {
     throw new Error(`Profile "${name}" is missing "command".`);
   }
 
-  return { name, command, cwd };
+  return { name, command };
 }
 
 function saveProfiles() {
@@ -98,11 +97,12 @@ function render() {
       const profile = profiles[i];
       process.stdout.write(`${marker} ${profile.name}\n`);
       process.stdout.write(`  ${profile.command}\n`);
-      process.stdout.write(`  cwd: ${profile.cwd}\n\n`);
+      process.stdout.write("\n");
     }
   }
 
   process.stdout.write("Controls: Enter launch | a add | e edit | d delete | r reload | q quit\n");
+  process.stdout.write(`Launch cwd: ${launchCwd}\n`);
   process.stdout.write(`Config: ${profilesPath}\n`);
 
   if (message) {
@@ -151,7 +151,7 @@ function shellQuote(value) {
 }
 
 function launchProfile(profile) {
-  const cwd = profile.cwd || process.cwd();
+  const cwd = launchCwd;
   const title = profile.name;
 
   if (process.platform === "win32") {
@@ -236,9 +236,7 @@ async function addProfile() {
     return;
   }
 
-  const cwd = await prompt("Working directory", process.cwd());
-
-  profiles.push({ name, command, cwd });
+  profiles.push({ name, command });
   selectedIndex = profiles.length - 1;
   saveProfiles();
   setMessage(`Added ${name}`);
@@ -253,9 +251,8 @@ async function editProfile() {
 
   const name = await prompt("Name", profile.name);
   const command = await prompt("Command", profile.command);
-  const cwd = await prompt("Working directory", profile.cwd);
 
-  profiles[selectedIndex] = { name, command, cwd };
+  profiles[selectedIndex] = { name, command };
   saveProfiles();
   setMessage(`Updated ${name}`);
 }

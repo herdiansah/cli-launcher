@@ -34,6 +34,8 @@ or:
 terminal-launcher
 ```
 
+The selected CLI opens in the folder where you ran `tl`. For example, running `tl` from `D:\work\my-app` launches the selected profile with `D:\work\my-app` as its working directory.
+
 If the same PowerShell window still says `tl` is not recognized, refresh that window's PATH and run it again:
 
 ```powershell
@@ -61,8 +63,7 @@ Profiles are stored in `config/profiles.json`.
 [
   {
     "name": "Codex CLI",
-    "command": "codex",
-    "cwd": "C:\\Projects"
+    "command": "codex"
   }
 ]
 ```
@@ -74,7 +75,7 @@ C:\Users\PC\AppData\Local\Microsoft\WindowsApps\wt.exe
 ```
 
 ```powershell
-wt new-tab --title "Codex CLI" -d "C:\Projects" powershell.exe -NoExit -Command "codex"
+wt new-tab --title "Codex CLI" -d "D:\work\my-app" powershell.exe -NoExit -Command "codex"
 ```
 
 If Windows Terminal is unavailable, it falls back to opening a new PowerShell window.
