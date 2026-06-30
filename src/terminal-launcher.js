@@ -204,6 +204,7 @@ function launchProfile(profile) {
 function prompt(question, defaultValue = "") {
   return new Promise((resolve) => {
     isPrompting = true;
+    process.stdin.removeListener("data", handleInputData);
     setRawMode(false);
     process.stdout.write("\n");
 
@@ -216,8 +217,11 @@ function prompt(question, defaultValue = "") {
 
     rl.question(label, (answer) => {
       rl.close();
-      setRawMode(true);
       isPrompting = false;
+      setRawMode(true);
+      process.stdin.resume();
+      process.stdin.removeListener("data", handleInputData);
+      process.stdin.on("data", handleInputData);
       resolve(answer.trim() || defaultValue);
     });
   });
@@ -314,6 +318,13 @@ async function handleKey(chunk) {
   render();
 }
 
+function handleInputData(chunk) {
+  handleKey(chunk).catch((error) => {
+    setMessage(error.message, "error");
+    render();
+  });
+}
+
 function shutdown() {
   setRawMode(false);
   clearScreen();
@@ -349,12 +360,7 @@ function main() {
   readline.emitKeypressEvents(process.stdin);
   process.stdin.resume();
   setRawMode(true);
-  process.stdin.on("data", (chunk) => {
-    handleKey(chunk).catch((error) => {
-      setMessage(error.message, "error");
-      render();
-    });
-  });
+  process.stdin.on("data", handleInputData);
 
   process.on("exit", () => setRawMode(false));
   process.on("SIGINT", shutdown);
